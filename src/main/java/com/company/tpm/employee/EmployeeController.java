@@ -1,2 +1,53 @@
-package com.company.tpm.employee; import jakarta.validation.Valid; import java.util.*; import org.springframework.data.domain.*; import org.springframework.security.access.prepost.PreAuthorize; import org.springframework.web.bind.annotation.*; import static com.company.tpm.employee.EmployeeDtos.*;
-@RestController @RequestMapping("/api/v1/employees") public class EmployeeController{private final EmployeeService service;EmployeeController(EmployeeService s){service=s;}@GetMapping @PreAuthorize("hasAuthority('employee.view')")Page<EmployeeResponse>list(@RequestParam(defaultValue="")String q,@PageableDefault(size=25)Pageable p){return service.search(q,p);}@GetMapping("/{id}")@PreAuthorize("hasAuthority('employee.view')")EmployeeResponse get(@PathVariable UUID id){return service.get(id);}@PostMapping @PreAuthorize("hasAuthority('employee.create')")EmployeeResponse create(@Valid @RequestBody CreateEmployeeRequest d){return service.create(d);}@DeleteMapping("/{id}")@PreAuthorize("hasAuthority('employee.deactivate')")void deactivate(@PathVariable UUID id){service.deactivate(id);}}
+package com.company.tpm.employee;
+
+import static com.company.tpm.employee.EmployeeDtos.*;
+
+import jakarta.validation.Valid;
+import java.util.UUID;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/v1/employees")
+public class EmployeeController {
+    private final EmployeeService service;
+
+    EmployeeController(EmployeeService s) {
+        service = s;
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAuthority('employee.view')")
+    Page<EmployeeResponse> list(@RequestParam(defaultValue = "") String q, @PageableDefault(size = 25) Pageable p) {
+        return service.search(q, p);
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('employee.view')")
+    EmployeeResponse get(@PathVariable UUID id) {
+        return service.get(id);
+    }
+
+    @PostMapping
+    @PreAuthorize("hasAuthority('employee.create')")
+    EmployeeResponse create(@Valid @RequestBody CreateEmployeeRequest d) {
+        return service.create(d);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('employee.deactivate')")
+    void deactivate(@PathVariable UUID id) {
+        service.deactivate(id);
+    }
+}
+

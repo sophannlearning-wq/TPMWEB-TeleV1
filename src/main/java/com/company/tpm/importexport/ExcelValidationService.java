@@ -1,2 +1,45 @@
-package com.company.tpm.importexport;import java.io.*;import java.util.*;import org.apache.poi.ss.usermodel.*;import org.springframework.stereotype.Service;
-@Service public class ExcelValidationService{private static final long MAX_BYTES=10L*1024*1024;public record Preview(int totalRows,List<String>headers,List<String>errors){}public Preview preview(String filename,long size,InputStream in)throws IOException{if(filename==null||!filename.toLowerCase(Locale.ROOT).endsWith(".xlsx"))throw new IllegalArgumentException("Only .xlsx files are supported");if(size<=0||size>MAX_BYTES)throw new IllegalArgumentException("File size is invalid");try(var workbook=WorkbookFactory.create(in)){if(workbook.getNumberOfSheets()==0)throw new IllegalArgumentException("Workbook contains no sheets");var sheet=workbook.getSheetAt(0);var first=sheet.getRow(sheet.getFirstRowNum());if(first==null)throw new IllegalArgumentException("Header row is missing");List<String>headers=new ArrayList<>();for(Cell c:first)headers.add(c.getStringCellValue().trim());return new Preview(Math.max(0,sheet.getLastRowNum()-sheet.getFirstRowNum()),List.copyOf(headers),List.of());}catch(EncryptedDocumentException e){throw new IllegalArgumentException("Encrypted files are not supported");}}}
+package com.company.tpm.importexport;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ExcelValidationService {
+    private static final long MAX_BYTES = 10L * 1024 * 1024;
+
+    public record Preview(int totalRows, List<String> headers, List<String> errors) {}
+
+    public Preview preview(String filename, long size, InputStream in) throws IOException {
+        if (filename == null || !filename.toLowerCase(Locale.ROOT).endsWith(".xlsx")) {
+            throw new IllegalArgumentException("Only .xlsx files are supported");
+        }
+        if (size <= 0 || size > MAX_BYTES) {
+            throw new IllegalArgumentException("File size is invalid");
+        }
+        try (var workbook = WorkbookFactory.create(in)) {
+            if (workbook.getNumberOfSheets() == 0) {
+                throw new IllegalArgumentException("Workbook contains no sheets");
+            }
+            var sheet = workbook.getSheetAt(0);
+            var first = sheet.getRow(sheet.getFirstRowNum());
+            if (first == null) {
+                throw new IllegalArgumentException("Header row is missing");
+            }
+            List<String> headers = new ArrayList<>();
+            for (Cell c : first) {
+                headers.add(c.getStringCellValue().trim());
+            }
+            return new Preview(Math.max(0, sheet.getLastRowNum() - sheet.getFirstRowNum()), List.copyOf(headers), List.of());
+        } catch (EncryptedDocumentException e) {
+            throw new IllegalArgumentException("Encrypted files are not supported");
+        }
+    }
+}
+

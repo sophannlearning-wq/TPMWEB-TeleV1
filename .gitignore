@@ -1,0 +1,7 @@
+target/
+src/main/frontend/generated/
+src/main/frontend/index.html
+node_modules/
+*.class
+*.log
+.DS_Store
