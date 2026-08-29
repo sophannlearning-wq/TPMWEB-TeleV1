@@ -1,0 +1,33 @@
+server:
+  port: ${PORT:8080}
+  servlet.session.cookie.http-only: true
+  servlet.session.cookie.secure: ${COOKIE_SECURE:false}
+spring:
+  application.name: tpm-training-platform
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/tpm}
+    username: ${DATABASE_USERNAME:tpm}
+    password: ${DATABASE_PASSWORD:tpm}
+    hikari.maximum-pool-size: ${DB_POOL_SIZE:10}
+  jpa:
+    hibernate.ddl-auto: validate
+    open-in-view: false
+  flyway.enabled: true
+app:
+  timezone: ${APP_TIMEZONE:Asia/Phnom_Penh}
+  public-base-url: ${PUBLIC_BASE_URL:http://localhost:8080}
+  telegram:
+    enabled: ${TELEGRAM_ENABLED:false}
+    bot-token: ${TELEGRAM_BOT_TOKEN:}
+    bot-username: ${TELEGRAM_BOT_USERNAME:}
+    webhook-secret: ${TELEGRAM_WEBHOOK_SECRET:}
+    link-token-ttl: ${TELEGRAM_LINK_TOKEN_TTL:PT10M}
+  reminder:
+    days-before: ${REMINDER_DAYS_BEFORE:7}
+    hours-before: ${REMINDER_HOURS_BEFORE:24}
+    final-hours-before: ${REMINDER_FINAL_HOURS_BEFORE:1}
+management:
+  endpoints.web.exposure.include: health,info,metrics
+  endpoint.health.show-details: never
+  endpoint.health.probes.enabled: true
+vaadin.launch-browser: false

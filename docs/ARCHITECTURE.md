@@ -1,0 +1,2 @@
+# Architecture
+A modular monolith keeps Web/API/business rules in one Spring Boot process. Vaadin views and Telegram handlers are adapters. They call application services, never repositories directly. PostgreSQL is the only system of record. Timestamps are UTC; the default organization timezone is Asia/Phnom_Penh. Telegram and Web share employee, schedule, attendance, score and notification services.

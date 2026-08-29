@@ -1,0 +1,1 @@
+package com.company.tpm.authorization; import java.util.*; import org.springframework.data.jpa.repository.JpaRepository; public interface RoleRepository extends JpaRepository<Role,UUID>{Optional<Role> findByCode(String code);}

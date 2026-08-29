@@ -1,0 +1,2 @@
+# Deployment
+Push to a protected GitHub main branch with CI required. In Railway create PostgreSQL and the Java service from this repository. Set the exact variables from `.env.example`. Railway's DATABASE_URL may need conversion to a JDBC URL depending on the injected format; the app currently consumes a JDBC URL. Configure `/actuator/health`, deploy staging first, verify Flyway and login, then promote. Keep secrets only in Railway. Enable backups and use expand/contract migrations for rollback safety.

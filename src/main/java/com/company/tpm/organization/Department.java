@@ -1,0 +1,2 @@
+package com.company.tpm.organization; import com.company.tpm.common.BaseEntity; import jakarta.persistence.*;
+@Entity @Table(name="departments") public class Department extends BaseEntity{@Column(nullable=false,unique=true)private String code;@Column(nullable=false)private String name;@Column(nullable=false)private boolean active=true;protected Department(){}public String getCode(){return code;}public String getName(){return name;}}

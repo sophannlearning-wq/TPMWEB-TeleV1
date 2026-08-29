@@ -1,0 +1,2 @@
+package com.company.tpm.certification;import java.time.*;import org.springframework.stereotype.Service;
+@Service public class CertificationStatusService{public enum Status{VALID,EXPIRING_SOON,EXPIRED}public Status status(LocalDate expiry,LocalDate today,int warningDays){if(expiry.isBefore(today))return Status.EXPIRED;if(!expiry.isAfter(today.plusDays(warningDays)))return Status.EXPIRING_SOON;return Status.VALID;}}

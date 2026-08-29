@@ -1,0 +1,1 @@
+package com.company.tpm.user; import java.util.*; import org.springframework.data.jpa.repository.*; public interface AppUserRepository extends JpaRepository<AppUser,UUID>{Optional<AppUser> findByUsernameIgnoreCase(String username);}

@@ -1,0 +1,2 @@
+# Executed source audit
+Inspected all repository files, Java sources, migrations, tests, Docker, Railway, environment and documentation. Findings: database authentication existed but lacked secure bootstrap; Telegram had token primitive but no runtime; attendance lacked service/API; dashboard was incomplete; reminders were absent; import was preview-only; UI covered only dashboard and employees; tests were rule-only. This revision addresses the first five with executable code and records remaining gaps without placeholders in navigation.

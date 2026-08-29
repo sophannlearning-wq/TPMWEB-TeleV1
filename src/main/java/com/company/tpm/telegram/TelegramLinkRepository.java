@@ -1,0 +1,1 @@
+package com.company.tpm.telegram;import java.util.*;import org.springframework.data.jpa.repository.JpaRepository;public interface TelegramLinkRepository extends JpaRepository<TelegramLink,UUID>{Optional<TelegramLink>findByTelegramUserIdAndActiveTrue(long id);Optional<TelegramLink>findByEmployeeIdAndActiveTrue(UUID id);}

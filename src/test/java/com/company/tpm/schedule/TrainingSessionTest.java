@@ -1,0 +1,1 @@
+package com.company.tpm.schedule;import java.time.*;import org.junit.jupiter.api.*;class TrainingSessionTest{@Test void invalidTimeRejected(){Assertions.assertThrows(IllegalArgumentException.class,()->new TrainingSession(null,LocalDate.now(),LocalTime.NOON,LocalTime.NOON));}}

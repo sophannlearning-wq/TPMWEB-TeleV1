@@ -1,0 +1,1 @@
+package com.company.tpm.schedule;import java.time.*;import java.util.*;import org.springframework.data.jpa.repository.*;public interface TrainingSessionRepository extends JpaRepository<TrainingSession,UUID>{@Query("select count(s) from TrainingSession s where s.sessionDate=:date and s.status='SCHEDULED'")long countScheduledOn(LocalDate date);}

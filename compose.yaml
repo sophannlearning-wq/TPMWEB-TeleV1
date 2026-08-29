@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:17
+    environment: {POSTGRES_DB: tpm, POSTGRES_USER: tpm, POSTGRES_PASSWORD: tpm}
+    healthcheck: {test: ["CMD-SHELL", "pg_isready -U tpm"], interval: 5s, timeout: 3s, retries: 10}
+    ports: ["5432:5432"]
+    volumes: ["tpm-db:/var/lib/postgresql/data"]
+  app:
+    build: .
+    depends_on: {db: {condition: service_healthy}}
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/tpm
+      DATABASE_USERNAME: tpm
+      DATABASE_PASSWORD: tpm
+      SPRING_PROFILES_ACTIVE: prod
+      APP_TIMEZONE: Asia/Phnom_Penh
+      TELEGRAM_ENABLED: "false"
+    ports: ["8080:8080"]
+volumes: {tpm-db: {}}

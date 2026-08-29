@@ -1,0 +1,2 @@
+package com.company.tpm.organization; import com.company.tpm.common.BaseEntity; import jakarta.persistence.*;
+@Entity @Table(name="sections",uniqueConstraints=@UniqueConstraint(columnNames={"department_id","code"})) public class Section extends BaseEntity{@ManyToOne(optional=false,fetch=FetchType.LAZY)private Department department;@Column(nullable=false)private String code;@Column(nullable=false)private String name;protected Section(){}public String getName(){return name;}}

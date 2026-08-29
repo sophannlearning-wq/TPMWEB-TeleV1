@@ -1,0 +1,10 @@
+{
+  "revision": "0.2.0",
+  "generated_files": 71,
+  "source_archive_available": false,
+  "limitations": [
+    "Original repository archive unavailable in workspace",
+    "Original Telegram bot source unavailable",
+    "Java 21 and Maven unavailable for local build"
+  ]
+}

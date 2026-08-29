@@ -1,0 +1,2 @@
+# Migration
+The original Telegram repository and historical Excel files were not attached. Before migration, inventory bot commands, rules, data stores and scheduled jobs. Import order: staff, organization, lessons, requirements, scores, attendance, schedules, users, Telegram links. Rehearse in staging, reconcile counts and samples, retain snapshots, freeze writes during cutover and document exceptions.
