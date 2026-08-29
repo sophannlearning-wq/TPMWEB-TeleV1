@@ -15,13 +15,12 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.with(VaadinSecurityConfigurer.vaadin(), cfg -> cfg
-            .loginView(LoginView.class)
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/actuator/health", "/telegram/webhook").permitAll()
-                .anyRequest().authenticated()
-            )
+        http.authorizeHttpRequests(auth -> auth
+            .requestMatchers("/actuator/health", "/telegram/webhook").permitAll()
+            .anyRequest().authenticated()
         );
+
+        http.with(VaadinSecurityConfigurer.vaadin(), cfg -> cfg.loginView(LoginView.class));
 
         return http.build();
     }
